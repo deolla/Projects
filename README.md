@@ -1,2 +1,2 @@
 # Projects
-A combination of diffrent project
+A combination of different project
