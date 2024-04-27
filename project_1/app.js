@@ -1,9 +1,86 @@
 // const fs = require('node:fs');
 // const add = require('./utils.js');
-const notes = require('./notes.js');
 // const validator = require('validator')
-const chalk = require('chalk');
+// const chalk = require('chalk');
+const notes = require('./notes.js');
 const yargs = require('yargs');
+
+// Using yargs to create add command to the add files.
+yargs.command({
+    command: 'add',
+    describe: 'Adding additional note',
+    builder: {
+        title: {
+            describe: 'Cooking Recipe.',
+            demandOption: true,
+            type: 'string'
+        },
+        body: {
+            describe: 'This is a new recipe and will be added to the recipe list.',
+            demandOption: true,
+            type: 'string'
+        },
+    },
+    handler: function (argv) {
+        notes.addNotes(argv.title, argv.body);
+    }
+});
+
+// Using Yargs to create 'remove' command to delete files.
+
+yargs.command({
+    command: 'remove',
+    describe: 'Removing a note',
+    builder: {
+        title: {
+            describe: 'Remove a note',
+            demandOption: true,
+            typeof: 'string',
+        }
+    },
+    handler: function (argv) {
+        notes.removeNotes(argv.title)
+    },
+});
+
+// Using Yargs to create 'list' command to list files.
+
+yargs.command({
+    command: 'list',
+    describe: 'List files',
+    handler: function () {
+        console.log('List files');
+    }
+});
+
+// Using Yargs to create 'read' command to read files.
+
+yargs.command({
+    command: 'read',
+    describe: 'Read files',
+    handler: function () {
+        console.log('Read files');
+    }
+});
+
+yargs.parse();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // write data to a file, replace existing date in the file and creating the file if it does not yet exis.
 // fs.writeFileSync('notes.txt', 'My boss explained that it is either this or that. The 512GB  is also included in the options provided in the link.')
@@ -32,45 +109,3 @@ const yargs = require('yargs');
 // customize yargs version
 yargs.version('1.1.0')
 
-
-// Using yargs to add command to the add files.
-
-yargs.command({
-    command: 'add',
-    describe: 'Adding additional note',
-    handler: function () {
-        console.log('Added a new note');
-    }
-});
-
-// Using Yargs to add 'remove' command to delete files.
-
-yargs.command({
-    command: 'remove',
-    describe: 'Removing a note',
-    handler: function () {
-        console.log('Removed a note');
-    },
-});
-
-// Using Yargs to add 'list' command to list files.
-
-yargs.command({
-    command: 'list',
-    describe: 'List files',
-    handler: function () {
-        console.log('List files');
-    }
-});
-
-// Using Yargs to add 'read' command to read files.
-
-yargs.command({
-    command: 'read',
-    describe: 'Read files',
-    handler: function () {
-        console.log('Read files');
-    }
-});
-
-console.log(yargs.argv);
