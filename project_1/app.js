@@ -1,6 +1,6 @@
 // const fs = require('node:fs');
 // const add = require('./utils.js');
-// const validator = require('validator')
+// const validator = require('validator');
 // const chalk = require('chalk');
 const notes = require('./notes.js');
 const yargs = require('yargs');
@@ -36,7 +36,7 @@ yargs.command({
             describe: 'Remove a note',
             demandOption: true,
             typeof: 'string',
-        }
+        },
     },
     handler: function (argv) {
         notes.removeNotes(argv.title)
@@ -48,8 +48,15 @@ yargs.command({
 yargs.command({
     command: 'list',
     describe: 'List files',
-    handler: function () {
-        console.log('List files');
+    builder: {
+        title: {
+            describe: 'List all files',
+            demandOption: true,
+            type: 'string'
+        },
+    },
+    handler: function (argv) {
+        notes.listNotes(argv.title)    ;
     }
 });
 
@@ -58,8 +65,15 @@ yargs.command({
 yargs.command({
     command: 'read',
     describe: 'Read files',
-    handler: function () {
-        console.log('Read files');
+    builder: {
+        title: {
+            describe: 'Read files',
+            demandOption: true,
+            type: 'string'
+        },
+    },
+    handler: function (argv) {
+        notes.readNotes(argv.title);
     }
 });
 
